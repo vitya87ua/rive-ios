@@ -13,16 +13,20 @@ import Foundation
          var inputs: [StateMachineInput] = []
 
          for i in 0 ..< inputCount() {
-             let input = try! input(from: i)
-             var type: StateMachineInputType = .boolean
+             do {
+                 let input = try input(from: i)
+                 var type: StateMachineInputType = .boolean
 
-             if input.isTrigger() {
-                 type = .trigger
-             } else if input.isNumber() {
-                 type = .number
+                 if input.isTrigger() {
+                     type = .trigger
+                 } else if input.isNumber() {
+                     type = .number
+                 }
+
+                 inputs.append(StateMachineInput(name: input.name(), type: type))
+             } catch {
+                 print(error)
              }
-
-             inputs.append(StateMachineInput(name: input.name(), type: type))
          }
 
          return inputs

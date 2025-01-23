@@ -80,10 +80,10 @@ open class RiveView: RiveRendererView {
         commonInit()
     }
     
-    public convenience init(model: RiveModel, autoPlay: Bool = true) {
+    public convenience init(model: RiveModel, autoPlay: Bool = true) throws {
         self.init()
         commonInit()
-        try! setModel(model, autoPlay: autoPlay)
+        try setModel(model, autoPlay: autoPlay)
     }
 
     
@@ -183,7 +183,7 @@ open class RiveView: RiveRendererView {
     #endif
 
     /// This resets the view with the new model. Useful when the `RiveView` was initialized without one.
-    open func setModel(_ model: RiveModel, autoPlay: Bool = true) throws {
+    open func setModel(_ model: RiveModel, autoPlay: Bool = true) {
         stopTimer()
         isPlaying = false
         riveModel = model
